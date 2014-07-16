@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ITFListen)
+project(itf_listen)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -80,7 +80,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES ITFListen
+#  LIBRARIES itf_listen
 #  CATKIN_DEPENDS rospy std_msgs
 #  DEPENDS system_lib
 )
@@ -97,19 +97,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(ITFListen
-#   src/${PROJECT_NAME}/ITFListen.cpp
+# add_library(itf_listen
+#   src/${PROJECT_NAME}/itf_listen.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(ITFListen_node src/ITFListen_node.cpp)
+# add_executable(itf_listen_node src/itf_listen_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(ITFListen_node ITFListen_generate_messages_cpp)
+# add_dependencies(itf_listen_node itf_listen_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(ITFListen_node
+# target_link_libraries(itf_listen_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -128,7 +128,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS ITFListen ITFListen_node
+# install(TARGETS itf_listen itf_listen_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -153,7 +153,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_ITFListen.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_itf_listen.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
