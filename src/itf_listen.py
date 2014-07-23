@@ -1,25 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#########################################################################################
-#	                                _     						#
-#	  __ _ ___ _ __   ___  ___  ___| |__  						#
-#	 / _` / __| '_ \ / _ \/ _ \/ __| '_ \ 						#
-#	| (_| \__ \ |_) |  __/  __/ (__| | | |						#
-#	 \__, |___/ .__/ \___|\___|\___|_| |_|						#
-#	 |___/    |_|                         						#
-#											#
-# ros package for speech recognition using Google Speech API				#
-# run using 'rosrun itf_listen itf_listen.py'							#
-# it creats and runs a node named itf_listen						#
-# the node itf_listen publishes two topics- /speech and /confidence			#
-# the topic /speech contains the reconized speech string				#
-# the topic /confidence contains the confidence level in percentage of the recognization#
-#											#
-#											#
-# written by achuwilson									#
-# 30-06-2012 , 3.00pm									#
-# achu@achuwilson.in									#
-#########################################################################################
+
 import roslib; roslib.load_manifest('itf_listen') 
 import rospy
 from std_msgs.msg import String
