@@ -8,6 +8,7 @@ Prerequisites
 Depends on sox for audio recording, tested with ROS Hydro. Installed sox components on my system:
 
 sudo apt-get install sox libsox1b libsox-fmt-base libsox-fmt-alsa
+sudo apt-get -y install python-simplejson
 
 Usage
 -----
