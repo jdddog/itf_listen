@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import roslib
 import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Int8
