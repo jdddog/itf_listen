@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import roslib; roslib.load_manifest('itf_listen') 
+import roslib
 import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Int8
@@ -12,60 +12,60 @@ cmd2='wget -q -U "Mozilla/5.0" --post-file recording.flac --header="Content-Type
 
 
 def speech():
-	print "Initializing node 'itf_listen'"
-	rospy.init_node('itf_listen')
-	pubs = rospy.Publisher('itf_listen', String)
-	pubc = rospy.Publisher('confidence', Int8)
-	
-	args2 = shlex.split(cmd2)
+    print "Initializing node 'itf_listen'"
+    rospy.init_node('itf_listen')
+    pubs = rospy.Publisher('itf_listen', String)
+    pubc = rospy.Publisher('confidence', Int8)
 
-	print "Start recording"	
-	os.system('sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 1%')	
+    args2 = shlex.split(cmd2)
 
-	print "Posting file to Google..."
-	output,error = subprocess.Popen(args2,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+    print "Start recording"
+    os.system('sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 1%')
 
-	output = output.replace('{"result":[]}', '')
+    print "Posting file to Google..."
+    output,error = subprocess.Popen(args2,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
 
-	if not error and len(output)>39:
-		jsonobj = simplejson.loads(output)
+    output = output.replace('{"result":[]}', '')
 
-		print "New output is " + output + ": end"
+    if not error and len(output)>39:
+        jsonobj = simplejson.loads(output)
 
-		alternatives = jsonobj['result'][0]['alternative']
+        print "New output is " + output + ": end"
 
-		indexer = 0
+        alternatives = jsonobj['result'][0]['alternative']
 
-		for lol in alternatives:
-			confidence = -1
-			try:
-				confidence = alternatives[indexer]['confidence']
-			except:
-				pass
-			
-			if (confidence >= 0):
-				print "Number " + str(indexer) + " is " + alternatives[indexer]['transcript'] + ", confidence is " + str(confidence)
-				pubs.publish(alternatives[indexer]['transcript'])
-				pubc.publish(confidence)
-			else:
-				print "Number " + str(indexer) + " is " + alternatives[indexer]['transcript']
+        indexer = 0
 
-			indexer += 1
-	else:
-		print "*** Recognition failed ***"
-		pubs.publish("BADINPUT")
+        for lol in alternatives:
+            confidence = -1
+            try:
+                confidence = alternatives[indexer]['confidence']
+            except:
+                pass
 
-	print ""
-	print "---------------------------------------------"
-	print ""
+            if (confidence >= 0):
+                print "Number " + str(indexer) + " is " + alternatives[indexer]['transcript'] + ", confidence is " + str(confidence)
+                pubs.publish(alternatives[indexer]['transcript'])
+                pubc.publish(confidence)
+            else:
+                print "Number " + str(indexer) + " is " + alternatives[indexer]['transcript']
 
-	speech()	
-	
+            indexer += 1
+    else:
+        print "*** Recognition failed ***"
+        pubs.publish("BADINPUT")
+
+    print ""
+    print "---------------------------------------------"
+    print ""
+
+    speech()
+
 
 if __name__ == '__main__':
-	try:
-		speech()
-	except rospy.ROSInterruptException: pass
-	except KeyboardInterrupt:
-		sys.exit(1)
+    try:
+        speech()
+    except rospy.ROSInterruptException: pass
+    except KeyboardInterrupt:
+        sys.exit(1)
    
