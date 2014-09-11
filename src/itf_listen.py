@@ -19,7 +19,7 @@ def speech():
     args2 = shlex.split(cmd2)
 
     print "Start recording"
-    os.system('sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 1%')
+    os.system('sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 3%')
 
     print "Posting file to Google..."
     output,error = subprocess.Popen(args2,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
