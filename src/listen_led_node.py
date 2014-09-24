@@ -11,11 +11,12 @@ class listen_led:
     def __init__(self):
         rospy.init_node("listen_led_node")
         self.pub=rospy.Publisher("/pololu/command",MotorCommand,queue_size=4)
-        rospy.Subscriber("/pololu_trajectory",Bool, self.callback)
+        rospy.Subscriber("/itf_listen_active",Bool, self.callback)
 
     def callback(self,msg):
         mtr=MotorCommand()
-        if msg:
+        mtr.joint_name=self.channel_name
+        if msg==True:
             mtr.position=0.77
             mtr.speed=1.0
             mtr.acceleration=1.0
