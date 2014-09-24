@@ -4,7 +4,7 @@
 import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Int8
-from std_msgs.msg import Boolean
+from std_msgs.msg import Bool
 import shlex,subprocess,os
 import simplejson
 cmd1='sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 1%'
@@ -16,7 +16,7 @@ def speech():
     rospy.init_node('itf_listen')
     pubs = rospy.Publisher('itf_listen', String)
     pubc = rospy.Publisher('confidence', Int8)
-    pubActive = rospy.Publisher('itf_listen_active', Boolean)
+    pubActive = rospy.Publisher('itf_listen_active', Bool)
 
     args2 = shlex.split(cmd2)
 
