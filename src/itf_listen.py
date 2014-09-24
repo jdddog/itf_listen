@@ -4,6 +4,7 @@
 import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Int8
+from std_msgs.msg import Boolean
 import shlex,subprocess,os
 import simplejson
 cmd1='sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 1%'
@@ -15,12 +16,16 @@ def speech():
     rospy.init_node('itf_listen')
     pubs = rospy.Publisher('itf_listen', String)
     pubc = rospy.Publisher('confidence', Int8)
+    pubActive = rospy.Publisher('itf_listen_active', Boolean)
 
     args2 = shlex.split(cmd2)
 
     print "Start recording"
     #os.system('sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 3%')
+
+    pubActive.publish(True)
     os.system('rec -r 16000 recording.flac silence 1 0.1 1% 1 2.5 3%')
+    pubActive.publish(False)
 
     print "Posting file to Google..."
     output,error = subprocess.Popen(args2,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
