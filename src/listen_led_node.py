@@ -16,7 +16,7 @@ class listen_led:
     def callback(self,msg):
         mtr=MotorCommand()
         mtr.joint_name=self.channel_name
-        if msg==True:
+        if msg.data==True:
             mtr.position=0.77
             mtr.speed=1.0
             mtr.acceleration=1.0
