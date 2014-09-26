@@ -5,8 +5,9 @@ import rospy
 from std_msgs.msg import String, Int8, Bool
 import shlex,subprocess,os
 import simplejson
+import random
 cmd1='sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 1%'
-cmd2='wget -q -U "Mozilla/5.0" --post-file recording.flac --header="Content-Type: audio/x-flac; rate=16000" -O - "http://www.google.com/speech-api/v2/recognize?lang=en-us&client=chromium&key=AIzaSyA4j0NkPDfPMNKjHSD6vk7h93Gne1t9lfQ"'
+cmd2='wget -q -U "Mozilla/5.0" --post-file recording.flac --header="Content-Type: audio/x-flac; rate=16000" -O - "http://www.google.com/speech-api/v2/recognize?lang=en-us&client=chromium&key=REPLACEWITHKEY"'
 
 
 def process_speech():
@@ -14,8 +15,13 @@ def process_speech():
     pubc = rospy.Publisher('confidence', Int8)
     pubActive = rospy.Publisher('itf_listen_active', Bool)
 
+    keys = ["AIzaSyA4j0NkPDfPMNKjHSD6vk7h93Gne1t9lfQ"]
+
     while not rospy.is_shutdown():
-        args2 = shlex.split(cmd2)
+        cmdCopy = cmd2[:]
+        keyToUse = random.choice(keys)
+        cmdCopy = cmdCopy.replace("REPLACEWITHKEY", keyToUse)
+        args2 = shlex.split(cmdCopy)
 
         print "Start recording"
         #os.system('sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 3%')
