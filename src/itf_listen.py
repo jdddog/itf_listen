@@ -26,9 +26,15 @@ def process_speech():
         print "Start recording"
         #os.system('sox -r 16000 -t alsa default recording.flac silence 1 0.1 1% 1 1.5 3%')
 
+        success_flag = '/tmp/success.flag'
         pubActive.publish(True)
-        os.system('rec -r 16000 recording.flac silence 1 0.1 1% 1 2.5 3%')
+        os.system("rec -r 16000 recording.flac silence 1 0.1 1% 1 2.5 3% && echo 'succcess' > /tmp/success.flag")
         pubActive.publish(False)
+
+        if os.path.isfile(success_flag):
+            os.remove(success_flag)
+        else:
+            return
 
         print "Posting file to Google..."
         output,error = subprocess.Popen(args2,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
