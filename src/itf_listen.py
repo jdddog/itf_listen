@@ -65,6 +65,8 @@ def process_speech():
                     print "Number " + str(indexer) + " is " + alternatives[indexer]['transcript']
                     pubs.publish(alternatives[0]['transcript'])
                     pubc.publish(confidence)
+                
+                break
 
                 indexer += 1
         else:
